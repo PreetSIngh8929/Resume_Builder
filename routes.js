@@ -370,6 +370,7 @@ router.get(
 router.get("/auth/logout", (req, res) => {
   req.logout();
   res.redirect("/auth/google");
+  // res.redirect("http://localhost:3000/resume")
 });
 
 module.exports = router;
