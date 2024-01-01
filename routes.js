@@ -42,6 +42,7 @@ router.get("/resume/new/personal", middleware.isLoggedIn, (req, res) => {
 //posting data from new resume to show page
 router.post("/resume", middleware.isLoggedIn, function (req, res) {
   // get data from form and add to campgrounds array
+  console.log('fj',req.body);
   var name = req.body.name;
   var roll_no = req.body.roll_no;
   var email = req.body.email;
@@ -101,6 +102,7 @@ router.post("/resume", middleware.isLoggedIn, function (req, res) {
   var hlink_2 = req.body.hlink_2;
   var hlink_3 = req.body.hlink_3;
   var hlink_4 = req.body.hlink_4;
+  var work_projects=req.body.work_projects;
   var author = {
     googleId: req.user.googleId,
     name: req.user.name,
@@ -157,14 +159,14 @@ router.post("/resume", middleware.isLoggedIn, function (req, res) {
     hlink_3: hlink_3,
     hlink_4: hlink_4,
     author: author,
+    work_projects:work_projects,
   };
 
-  // Create a new campground and save to DB
   Resumes.create(newResume, function (err, newlyCreated) {
     if (err) {
       console.log(err);
     } else {
-      //redirect back to campgrounds page
+      console.log(newlyCreated)
       req.flash("success", "New Resume Created");
       res.redirect("/resume");
     }

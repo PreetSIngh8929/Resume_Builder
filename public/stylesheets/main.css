@@ -11,7 +11,7 @@
 
 .jumbotron .container h1 {
   font-family: "Comic Neue", cursive;
-  color: purple;
+  color: rgb(184, 134, 184);
 }
 
 /* .container h4{
@@ -85,4 +85,76 @@ td {
 }
 a {
   color: white;
+}
+/* Add your CSS styling here */
+body {
+  font-family: 'Comic Neue', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.navbar-brand {
+  font-size: 1.5em;
+}
+
+.navbar-nav .nav-link {
+  color: #fff;
+}
+
+.jumbotron {
+  background-color: #343a40;
+  color: #fff;
+  padding: 100px 0;
+}
+
+.custom-card {
+  background-color: #fdf5e6;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.custom-card-body {
+  background-color: #fdf5e6;
+}
+
+.btn-dark {
+  background-color: #1e1f20;
+  border-color: #343a40;
+}
+
+.btn-dark:hover {
+  background-color: #23272b;
+  border-color: #23272b;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #218838;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
+
+.btn-info:hover {
+  background-color: #138496;
+  border-color: #138496;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #c82333;
 }

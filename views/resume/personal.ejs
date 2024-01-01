@@ -22,6 +22,68 @@
     />
 
     <title>Resume Builders</title>
+    <style>
+      body {
+        font-family: 'Comic Neue', sans-serif;
+        background-color: #f0f0f0;
+        /* padding-top: 70px; */
+      }
+  
+      /* .navbar {
+        background-color: #333;
+        color: white;
+      }
+  
+      .navbar-brand {
+        font-size: 1.5em;
+      } */
+  
+      /* h1, h2, h3 {
+        color: #333;
+      } */
+  
+      form {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+  
+      .form-group {
+        margin-bottom: 20px;
+      }
+  
+      input[type="text"], input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 1em;
+      }
+  
+      button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        font-size: 1em;
+        background-color: #28a745;
+        color: white;
+      }
+  
+      button[type="submit"]:hover {
+        background-color: #218838;
+      }
+  
+      .btn-back {
+        margin-top: 10px;
+        width: 100%;
+      }
+  
+      .btn-back:hover {
+        background-color: #007bff;
+      }
+      </style>
   </head>
 
   <body>
@@ -93,11 +155,12 @@
     <div class="row justify-content-center">
       <div class="col-md-12 text-center">
         <h1>Create A New Resume</h1>
-        <h2>Personal Details</h2>
+       
       </div>
 
-      <div class="col-lg-4 col-md-6 col-sm-8 col-10">
+      <div class="col-lg-6 col-md-6 col-sm-8 col-10">
         <form action="/resume" method="POST">
+          <h2>Personal Details</h2>
           <div class="form-group">
             <input
               class="form-control"
@@ -504,7 +567,7 @@
             <input
               class="form-control"
               type="text"
-              name="hlink_4"
+              name="work_projects.link"
               placeholder="Link Title"
             />
           </div>

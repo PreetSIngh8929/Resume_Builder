@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
+const projectSchema = new Schema({
+  projectName: String,
+  link: String,
+  description: String,
+  duration: String
+});
 const resumesSchema = new Schema({
   name: String,
   roll_no: String,
@@ -51,6 +56,7 @@ const resumesSchema = new Schema({
   hlink_2: String,
   hlink_3: String,
   hlink_4: String,
+  work_projects:[projectSchema],
   author: {
     googleId: String,
     name: String,
