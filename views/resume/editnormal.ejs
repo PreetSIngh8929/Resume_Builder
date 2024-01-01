@@ -628,6 +628,34 @@
               placeholder="Github,Linkedin etc . account links"
             />
           </div>
+          <h2>Projects</h2>
+        <div id="projectsContainer">
+          <% for(let i=0; i < resume.work_projects.length; i++) { %>
+            <div class="project">
+              <h3>Project <%= i + 1 %>
+              </h3>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[work_projects][<%= i %>][projectName]"
+                  value="<%= resume.work_projects[i].projectName %>" placeholder="Project Title" />
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[work_projects][<%= i %>][description]"
+                  value="<%= resume.work_projects[i].description %>" placeholder="Project Description" />
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[work_projects][<%= i %>][link]"
+                  value="<%= resume.work_projects[i].link %>" placeholder="Project Link" />
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[work_projects][<%= i %>][duration]"
+                  value="<%= resume.work_projects[i].duration %>" placeholder="Project Duration" />
+              </div>
+            </div>
+            <% } %>
+        </div>
+
+        <!-- Add Project button -->
+        <button type="button" class="btn btn-info" id="addProjectBtn">Add Project</button>
           <div class="form-group">
             <button class="btn btn-success btn-lg btn-block">
               Update Resume
@@ -644,3 +672,42 @@
     <%- include("../partials/footer") %>
   </body>
 </html>
+<script>
+  document.getElementById('addProjectBtn').addEventListener('click', function () {
+    const projectsContainer = document.getElementById('projectsContainer');
+    const projectCount = projectsContainer.getElementsByClassName('project').length;
+    console.log(projectCount, projectsContainer);
+    const newProject = document.createElement('div');
+    newProject.classList.add('project');
+    console.log(newProject)
+    newProject.innerHTML = `
+      <h3>Project ${projectCount + 1}</h3>
+      <div class="form-group">
+        <input
+          class="form-control"
+          type="text"
+          name="resume[work_projects][${projectCount}][projectName]"
+          placeholder="Project Title"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          class="form-control"
+          type="text"
+          name="resume[work_projects][${projectCount}][description]"
+          placeholder="Project Description"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          class="form-control"
+          type="text"
+          name="resume[work_projects][${projectCount}][link]"
+          placeholder="Project Link"
+        />
+      </div>
+    `;
+
+    projectsContainer.appendChild(newProject);
+  });
+</script>

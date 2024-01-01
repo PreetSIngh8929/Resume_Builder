@@ -42,7 +42,7 @@ router.get("/resume/new/personal", middleware.isLoggedIn, (req, res) => {
 //posting data from new resume to show page
 router.post("/resume", middleware.isLoggedIn, function (req, res) {
   // get data from form and add to campgrounds array
-  console.log('fj',req.body);
+  console.log(req.body.name);
   var name = req.body.name;
   var roll_no = req.body.roll_no;
   var email = req.body.email;
@@ -166,7 +166,7 @@ router.post("/resume", middleware.isLoggedIn, function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      console.log(newlyCreated)
+      console.log(newlyCreated);
       req.flash("success", "New Resume Created");
       res.redirect("/resume");
     }
@@ -181,7 +181,7 @@ router.get("/resume/pro/:id", middleware.isLoggedIn, function (req, res) {
       req.flash("error", "Campground Not Found");
       res.redirect("back");
     } else {
-      console.log(foundResume);
+      console.log(foundResume,'found');
       // render show template with that resume
       res.render("resume/show", { resume: foundResume });
     }
@@ -228,7 +228,7 @@ router.get("/resume/normal/:id", middleware.isLoggedIn, function (req, res) {
     if (err || !foundResume) {
       res.redirect("back");
     } else {
-      console.log(foundResume);
+      console.log(foundResume,'found normal');
       // render show template with that resume
       res.render("resume/show_normal", { resume: foundResume });
     }
@@ -242,7 +242,7 @@ router.get("/resume/pro/:id/edit", function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      console.log(foundResume);
+      console.log(foundResume,'edit');
       // render show template with that resume
       res.render("resume/edit", { resume: foundResume });
     }
@@ -254,7 +254,7 @@ router.get("/resume/normal/:id/edit", function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      console.log(foundResume);
+      console.log(foundResume,'edit normal');
       // render show template with that resume
       res.render("resume/editnormal", { resume: foundResume });
     }
@@ -301,7 +301,7 @@ router.get("/resume/normal/:id/download", function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      console.log(foundResume);
+      console.log(foundResume,'download');
       // render show template with that resume
       res.render("resume/downloadpreview_normal", { resume: foundResume });
     }
@@ -313,7 +313,7 @@ router.get("/resume/pro/:id/download", function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      console.log(foundResume);
+      console.log(foundResume,'pro download');
       // render show template with that resume
       res.render("resume/downloadpreview", { resume: foundResume });
     }

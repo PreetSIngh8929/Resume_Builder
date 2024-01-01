@@ -150,7 +150,21 @@
         <li style="list-style-type: none"><%=resume.projd_3 %></li>
         <% } %>
       </ul>
-
+      <h4 class="headings">Work Projects</h4>
+      <ul style="font-size: 15px">
+        <% resume.work_projects.forEach(function(project, index) { %>
+          <li class="proj_heading">
+            <%= project.projectName %>
+            <a href="<%= project.link %>" style="color: black">
+              <i class="fas fa-external-link-square-alt"></i>
+            </a>
+          </li>
+          <li style="list-style-type: none"><%= project.description %></li>
+          <li><strong>Duration:</strong> <%= project.duration %></li>
+          <!-- Add other fields related to the project here -->
+        <% }); %>
+      </ul>
+      <br />
       <h4 class="headings">Achievements</h4>
 
       <ul>

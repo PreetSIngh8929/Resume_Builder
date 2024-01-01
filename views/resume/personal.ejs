@@ -1,35 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-      crossorigin="anonymous"
-    />
 
-    <link rel="stylesheet" href="/stylesheets/main.css" />
-    <link rel="stylesheet" href="/stylesheets/new.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
-    <title>Resume Builders</title>
-    <style>
-      body {
-        font-family: 'Comic Neue', sans-serif;
-        background-color: #f0f0f0;
-        /* padding-top: 70px; */
-      }
-  
-      /* .navbar {
+  <link rel="stylesheet" href="/stylesheets/main.css" />
+  <link rel="stylesheet" href="/stylesheets/new.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet" />
+
+  <title>Resume Builders</title>
+  <style>
+    body {
+      font-family: 'Comic Neue', sans-serif;
+      background-color: #f0f0f0;
+      /* padding-top: 70px; */
+    }
+
+    /* .navbar {
         background-color: #333;
         color: white;
       }
@@ -37,560 +27,375 @@
       .navbar-brand {
         font-size: 1.5em;
       } */
-  
-      /* h1, h2, h3 {
+
+    /* h1, h2, h3 {
         color: #333;
       } */
-  
-      form {
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-  
-      .form-group {
-        margin-bottom: 20px;
-      }
-  
-      input[type="text"], input[type="number"] {
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        font-size: 1em;
-      }
-  
-      button[type="submit"] {
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        border: none;
-        font-size: 1em;
-        background-color: #28a745;
-        color: white;
-      }
-  
-      button[type="submit"]:hover {
-        background-color: #218838;
-      }
-  
-      .btn-back {
-        margin-top: 10px;
-        width: 100%;
-      }
-  
-      .btn-back:hover {
-        background-color: #007bff;
-      }
-      </style>
-  </head>
 
-  <body>
-    <!-- Navbar	 -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="/">Resume Builders</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarCollapse"
-        aria-controls="navbarCollapse"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/landing"
-              >Home <span class="sr-only">(current)</span></a
-            >
-          </li>
-        </ul>
+    form {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-        <diV class="float-right">
-          <ul class="navbar-nav mr auto">
-            <% if(!currentUser){ %>
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1em;
+      background-color: #28a745;
+      color: white;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #218838;
+    }
+
+    .btn-back {
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .btn-back:hover {
+      background-color: #007bff;
+    }
+    .work-projects-add{
+      margin-bottom: 18.4px;
+    }
+    .addProject{
+      margin:18.4px 0;
+    }
+  </style>
+  <script>
+    // Function to add new project input fields
+    function addProject() {
+      const container = document.getElementById('projectsContainer');
+      const projectCount = container.children.length
+      const projectDiv = document.createElement('div');
+
+      const projectName = document.createElement('input');
+      projectName.type = 'text';
+      projectName.name = `work_projects[${projectCount}][projectName]`;
+      projectName.placeholder = 'Project Name';
+      projectName.classList = 'form-control work-projects-add';
+
+
+      const link = document.createElement('input');
+      link.type = 'text';
+      link.name = `work_projects[${projectCount}][link]`;
+      link.placeholder = 'Link';
+      link.classList = 'form-control work-projects-add';
+
+
+      const description = document.createElement('input');
+      description.type = 'text';
+      description.name = `work_projects[${projectCount}][description]`;
+      description.placeholder = 'Description';
+      description.classList = 'form-control work-projects-add';
+
+      const duration = document.createElement('input');
+      duration.type = 'text';
+      duration.name = `work_projects[${projectCount}][duration]`;
+      duration.placeholder = 'Duration';
+      duration.classList = 'form-control work-projects-add';
+
+
+      projectDiv.appendChild(projectName);
+      projectDiv.appendChild(link);
+      projectDiv.appendChild(description);
+      projectDiv.appendChild(duration);
+      container.appendChild(projectDiv);
+    }
+  </script>
+</head>
+
+<body>
+  <!-- Navbar	 -->
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="/">Resume Builders</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+      aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/landing">Home <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+
+      <diV class="float-right">
+        <ul class="navbar-nav mr auto">
+          <% if(!currentUser){ %>
             <li class="nav-item mx-2">
               <a href="/auth/google" class="nav-link">Login</a>
             </li>
             <!-- <li class="nav-item  mx-2"><a href="/register" class="nav-link">Sign-Up</a></li> -->
             <% } else{%>
-            <li class="nav-item mx-2">
-              <a href="#" class="nav-link"
-                >Signed In As <%=currentUser.name%></a
-              >
-            </li>
-            <!-- <li class="nav-item  mx-2"><a href="auth/logout" class="nav-link">Log-Out</a></li> -->
-            <% }%>
-          </ul>
-        </diV>
+              <li class="nav-item mx-2">
+                <a href="#" class="nav-link">Signed In As <%=currentUser.name%></a>
+              </li>
+              <!-- <li class="nav-item  mx-2"><a href="auth/logout" class="nav-link">Log-Out</a></li> -->
+              <% }%>
+        </ul>
+      </diV>
 
-        <!-- <form class="form-inline mt-2 mt-md-0">
+      <!-- <form class="form-inline mt-2 mt-md-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form> -->
-      </div>
-    </nav>
+    </div>
+  </nav>
 
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#"> Resume Builders </a>
-        </div>
-      </div>
-    </nav>
-
-    <br />
-    <diV class="container">
-      <% if (error && error.length >0){ %>
-      <div class="alert alert-danger" role="alert"><%= error %></div>
-      <% } %> <% if (success && success.length >0){ %>
-      <div class="alert alert-success" role="alert"><%= success %></div>
-      <% } %>
-    </diV>
-    <br />
-    <div class="row justify-content-center">
-      <div class="col-md-12 text-center">
-        <h1>Create A New Resume</h1>
-       
-      </div>
-
-      <div class="col-lg-6 col-md-6 col-sm-8 col-10">
-        <form action="/resume" method="POST">
-          <h2>Personal Details</h2>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="name"
-              placeholder="Name"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="roll_no"
-              placeholder="Roll No."
-            />
-          </div>
-
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="number"
-              name="contact"
-              placeholder="Contact No."
-            />
-          </div>
-
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="email"
-              placeholder="Email Address"
-            />
-          </div>
-
-          <h2>Education</h2>
-          <h3>College/Degree</h3>
-
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="degree_name"
-              placeholder="Degree Name"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="number"
-              name="CGPA"
-              placeholder="CGPA"
-              min="0.01"
-              step="0.01"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="Duration"
-              placeholder="Passsing Year"
-            />
-          </div>
-
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="University_Name"
-              placeholder="University Name"
-            />
-          </div>
-          <h3>Class XII</h3>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="board_12"
-              placeholder="Board Name"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="number"
-              name="per_12"
-              placeholder="Percentage"
-              min="0.01"
-              step="0.01"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="pass_12"
-              placeholder="Passing Year"
-            />
-          </div>
-
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="school_12"
-              placeholder="School Name"
-            />
-          </div>
-          <h3>Class X</h3>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="board_10"
-              placeholder="Board Name"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="number"
-              name="per_10"
-              placeholder="Percentage"
-              min="0.01"
-              step="0.01"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="pass_10"
-              placeholder="Passing Year"
-            />
-          </div>
-
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="school_10"
-              placeholder="School Name"
-            />
-          </div>
-          <h2>Skills</h2>
-
-          <h3>Languages</h3>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="lang_1"
-              placeholder="Skill Name"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="lang_2"
-              placeholder="Languages used or Desc"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="lang_3"
-              placeholder="Skill Name"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="lang_4"
-              placeholder="Languages used or Desc"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="lang_5"
-              placeholder="Skill Name"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="lang_6"
-              placeholder="Languages used or Desc"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="lang_7"
-              placeholder="Skill Name"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="lang_8"
-              placeholder="Languages used or Desc"
-            />
-          </div>
-          <h3>Projects</h3>
-
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="proj_1"
-              placeholder="Project 1 Name"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="projd_1"
-              placeholder="Project Description"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="plink_1"
-              placeholder="Project Link"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="proj_2"
-              placeholder="Project 2 Name"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="projd_2"
-              placeholder="Project Description"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="plink_2"
-              placeholder="Project Link"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="proj_3"
-              placeholder="Project 3 Name"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="projd_3"
-              placeholder="Project Description"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="plink_3"
-              placeholder="Project Link"
-            />
-          </div>
-          <h2>Achievements and Hobbies</h2>
-          <h3>Achievements</h3>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="ach_1"
-              placeholder="Achievement 1"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="ach_2"
-              placeholder="Achievement 2"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="ach_3"
-              placeholder="Achievement 3"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="ach_4"
-              placeholder="Achievement 4"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="ach_5"
-              placeholder="Achievement 5"
-            />
-          </div>
-          <h3>Hobbies</h3>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="hob_1"
-              placeholder="Hobby 1"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="hob_2"
-              placeholder="Hobby 2"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="hob_3"
-              placeholder="Hobby 3"
-            />
-          </div>
-          <h3>Account Links</h3>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="hlink_1"
-              placeholder="Link Title"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="link_1"
-              placeholder="Github,Linkedin etc . account links"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="hlink_2"
-              placeholder="Link Title"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="link_2"
-              placeholder="Github,Linkedin etc . account links"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="hlink_3"
-              placeholder="Link Title"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="link_3"
-              placeholder="Github,Linkedin etc . account links"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="work_projects.link"
-              placeholder="Link Title"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="link_4"
-              placeholder="Github,Linkedin etc . account links"
-            />
-          </div>
-
-          <div class="form-group">
-            <button class="btn btn-success btn-lg btn-block">Submit</button>
-          </div>
-        </form>
-        <a class="btn btn-md btn-primary" href="/resume"
-          ><i class="fa fa-arrow-left"></i> &nbsp Back</a
-        >
-        <br />
-        <br />
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#"> Resume Builders </a>
       </div>
     </div>
-    <%- include("../partials/footer") %>
-  </body>
+  </nav>
+
+  <br />
+  <diV class="container">
+    <% if (error && error.length>0){ %>
+      <div class="alert alert-danger" role="alert">
+        <%= error %>
+      </div>
+      <% } %>
+        <% if (success && success.length>0){ %>
+          <div class="alert alert-success" role="alert">
+            <%= success %>
+          </div>
+          <% } %>
+  </diV>
+  <br />
+  <div class="row justify-content-center">
+    <div class="col-md-12 text-center">
+      <h1>Create A New Resume</h1>
+
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-8 col-10">
+      <form action="/resume" method="POST">
+        <h2>Personal Details</h2>
+        <div class="form-group">
+          <input class="form-control" type="text" name="name" placeholder="Name" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="roll_no" placeholder="Roll No." />
+        </div>
+
+        <div class="form-group">
+          <input class="form-control" type="number" name="contact" placeholder="Contact No." />
+        </div>
+
+        <div class="form-group">
+          <input class="form-control" type="text" name="email" placeholder="Email Address" />
+        </div>
+
+        <h2>Education</h2>
+        <h3>College/Degree</h3>
+
+        <div class="form-group">
+          <input class="form-control" type="text" name="degree_name" placeholder="Degree Name" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="number" name="CGPA" placeholder="CGPA" min="0.01" step="0.01" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="Duration" placeholder="Passsing Year" />
+        </div>
+
+        <div class="form-group">
+          <input class="form-control" type="text" name="University_Name" placeholder="University Name" />
+        </div>
+        <h3>Class XII</h3>
+        <div class="form-group">
+          <input class="form-control" type="text" name="board_12" placeholder="Board Name" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="number" name="per_12" placeholder="Percentage" min="0.01" step="0.01" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="pass_12" placeholder="Passing Year" />
+        </div>
+
+        <div class="form-group">
+          <input class="form-control" type="text" name="school_12" placeholder="School Name" />
+        </div>
+        <h3>Class X</h3>
+        <div class="form-group">
+          <input class="form-control" type="text" name="board_10" placeholder="Board Name" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="number" name="per_10" placeholder="Percentage" min="0.01" step="0.01" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="pass_10" placeholder="Passing Year" />
+        </div>
+
+        <div class="form-group">
+          <input class="form-control" type="text" name="school_10" placeholder="School Name" />
+        </div>
+        <h2>Skills</h2>
+
+        <h3>Languages</h3>
+        <div class="form-group">
+          <input class="form-control" type="text" name="lang_1" placeholder="Skill Name" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="lang_2" placeholder="Languages used or Desc" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="lang_3" placeholder="Skill Name" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="lang_4" placeholder="Languages used or Desc" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="lang_5" placeholder="Skill Name" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="lang_6" placeholder="Languages used or Desc" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="lang_7" placeholder="Skill Name" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="lang_8" placeholder="Languages used or Desc" />
+        </div>
+        <h3>Personal Projects</h3>
+
+        <div class="form-group">
+          <input class="form-control" type="text" name="proj_1" placeholder="Project 1 Name" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="projd_1" placeholder="Project Description" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="plink_1" placeholder="Project Link" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="proj_2" placeholder="Project 2 Name" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="projd_2" placeholder="Project Description" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="plink_2" placeholder="Project Link" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="proj_3" placeholder="Project 3 Name" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="projd_3" placeholder="Project Description" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="plink_3" placeholder="Project Link" />
+        </div>
+        <h2>Achievements and Hobbies</h2>
+        <h3>Achievements</h3>
+        <div class="form-group">
+          <input class="form-control" type="text" name="ach_1" placeholder="Achievement 1" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="ach_2" placeholder="Achievement 2" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="ach_3" placeholder="Achievement 3" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="ach_4" placeholder="Achievement 4" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="ach_5" placeholder="Achievement 5" />
+        </div>
+        <h3>Hobbies</h3>
+        <div class="form-group">
+          <input class="form-control" type="text" name="hob_1" placeholder="Hobby 1" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="hob_2" placeholder="Hobby 2" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="hob_3" placeholder="Hobby 3" />
+        </div>
+        <h3>Account Links</h3>
+        <div class="form-group">
+          <input class="form-control" type="text" name="hlink_1" placeholder="Link Title" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="link_1" placeholder="Github,Linkedin etc . account links" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="hlink_2" placeholder="Link Title" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="link_2" placeholder="Github,Linkedin etc . account links" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="hlink_3" placeholder="Link Title" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="link_3" placeholder="Github,Linkedin etc . account links" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="hlink_4" placeholder="Link Title" />
+
+        </div>   <div class="form-group">
+          <input class="form-control" type="text" name="link_4" placeholder="Github,Linkedin etc . account links" />
+        </div>
+        <h2>Work Experience</h2>
+        <h3>Projects</h3>
+
+     
+        <div id="projectsContainer">
+          <!-- Fields for the first project -->
+          <div>
+            <!-- <label for="projectName1">Project Name:</label> -->
+            <input class="form-control" type="text" name="work_projects[0][projectName]" placeholder="Project Name">
+            <br>
+            <!-- <label for="link1">Link:</label> -->
+            <input class="form-control" type="text" name="work_projects[0][link]" placeholder="Link">
+            <br>
+            <!-- <label for="description1">Description:</label> -->
+            <input class="form-control" type="text" name="work_projects[0][description]" placeholder="Description">
+            <br>
+            <!-- <label for="duration1">Duration:</label> -->
+            <input class="form-control" type="text" name="work_projects[0][duration]" placeholder="Duration">
+            <br>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-info addProject"  onclick="addProject()">Add Project</button>
+
+<br/>
+
+        <div class="form-group">
+          <button class="btn btn-success btn-lg btn-block">Submit</button>
+        </div>
+      </form>
+      <a class="btn btn-md btn-primary" href="/resume"><i class="fa fa-arrow-left"></i> &nbsp Back</a>
+      <br />
+      <br />
+    </div>
+  </div>
+  <%- include("../partials/footer") %>
+</body>
+
 </html>
