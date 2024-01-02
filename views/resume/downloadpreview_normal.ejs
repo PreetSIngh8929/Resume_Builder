@@ -1,204 +1,174 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-      crossorigin="anonymous"
-    />
 
-    <link rel="stylesheet" href="/stylesheets/main.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap"
-      rel="stylesheet"
-    />
-    <script src="/stylesheets/pdf.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.js"></script>
-    <title>Resume Builders</title>
-  </head>
-  <body>
-    <br />
-    <br />
-    <div class="col-md-11 text-right mb-3">
-      <button class="btn btn-primary">
-        <a href="/resume/normal/<%= resume._id%>"
-          ><i class="fa fa-arrow-left"></i> &nbsp back</a
-        >
-      </button>
-      &nbsp &nbsp
-      <button class="btn btn-danger" id="download">
-        <i class="fa fa-download"></i> &nbsp download pdf
-      </button>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="/stylesheets/main.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet" />
+  <script src="/stylesheets/pdf.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.js"></script>
+  <title>Resume Builders</title>
+
+</head>
+
+<body>
+  <br />
+  <br />
+  <div class="col-md-11 text-right mb-3">
+    <button class="btn btn-primary">
+      <a href="/resume/normal/<%= resume._id%>"><i class="fa fa-arrow-left"></i> &nbsp back</a>
+    </button>
+    &nbsp &nbsp
+    <button class="btn btn-danger" id="download">
+      <i class="fa fa-download"></i> &nbsp download pdf
+    </button>
+  </div>
+
+  <br />
+
+  <div class="container col-md-10" id="resume">
+
+    <div class="middle">
+      <h1>
+        <%=resume.name %>
+      </h1>
+      <p class="heading_resume">
+        <% resume.accountLinks.forEach(function(links, index) { %>
+          <a href="<%= links.link %>" style="color: black;text-transform: capitalize;">
+            <%= links.linkTitle %>
+          </a>
+
+
+          <% }); %>
+      </p>
+      <!-- <p class="heading_resume">
+            <i class="fas fa-university"> &nbsp<%=resume.University_Name %></i>
+          </p> -->
+      <p class="heading_resume">
+        <i class="fas fa-envelope"> &nbsp <%=resume.email %> &nbsp</i> | &nbsp
+        <i class="fas fa-phone-alt"> &nbsp <%=resume.contact %></i>
+      </p>
     </div>
 
+    <hr class="hr_head" />
+
+    <h4 class="headings">Education</h4>
+    <table class="education">
+      <!-- <tr>
+            <th>Degree Name</th>
+            <th>Year Of Passing</th>
+            <th>Organization Name</th>
+            <th>CGPA</th>
+          </tr> -->
+      <% resume.education.forEach(function(edu, index) { %>
+
+        <tr>
+          <td>
+            <%=edu.degreeName%>
+          </td>
+          <td>
+            <%=edu.passingYear%>
+          </td>
+          <td>
+            <%=edu.instituteName%>
+          </td>
+          <td>
+            <%=edu.percentage%>
+          </td>
+        </tr>
+
+
+
+        <% }); %>
+    </table>
     <br />
 
-    <div class="container col-md-10" id="resume">
-      <div class="middle">
-        <h1><%=resume.name %></h1>
-        <p class="heading_resume">
-          <%if(resume.link_1){ %> &nbsp &nbsp &nbsp &nbsp &nbsp
-          <a href="<%=resume.link_1%>" style="color: blue"
-            ><%=resume.hlink_1 %></a
-          >
-          <%}%> <%if(resume.link_2){ %> &nbsp &nbsp &nbsp &nbsp &nbsp
-          <a href="<%=resume.link_2%>" style="color: blue">
-            <%=resume.hlink_2 %></a
-          >
-          <%}%> <%if(resume.link_3){ %> &nbsp &nbsp &nbsp &nbsp &nbsp
-          <a href="<%=resume.link_3%>" style="color: blue">
-            <%=resume.hlink_3 %></a
-          >
-          <%}%> <%if(resume.link_4){ %> &nbsp &nbsp &nbsp &nbsp &nbsp
-          <a href="<%=resume.link_4%>" style="color: blue">
-            <%=resume.hlink_4 %></a
-          >
-          <%}%>
-        </p>
-        <p class="heading_resume">
-          <i class="fas fa-university"> &nbsp<%=resume.University_Name %></i>
-        </p>
-        <p class="heading_resume">
-          <i class="fas fa-envelope"> &nbsp <%=resume.email %> &nbsp</i> | &nbsp
-          <i class="fas fa-phone-alt"> &nbsp <%=resume.contact %></i>
-        </p>
-      </div>
-
-      <hr class="hr_head" />
-
-      <h4 class="headings">Education</h4>
-      <table class="education">
-        <tr>
-          <th>Degree Name</th>
-          <th>Year Of Passing</th>
-          <th>Organization Name</th>
-          <th>CGPA</th>
-        </tr>
-        <tr>
-          <td><%=resume.degree_name%></td>
-          <td><%=resume.Duration%></td>
-          <td><%=resume.University_Name%></td>
-          <td><%=resume.CGPA%></td>
-        </tr>
-        <tr>
-          <td><%=resume.board_12%>(Class XII)</td>
-          <td><%=resume.pass_12%></td>
-          <td><%=resume.school_12%></td>
-          <td><%=resume.per_12%></td>
-        </tr>
-        <tr>
-          <td><%=resume.board_10%>(Class X)</td>
-          <td><%=resume.pass_10%></td>
-          <td><%=resume.school_10%></td>
-          <td><%=resume.per_10%></td>
-        </tr>
-      </table>
-      <br />
-
-      <h4 class="headings">Languages and Skill</h4>
-      <ul>
-        <% if(resume.lang_1){ %>
-        <li style="font-size: 20px">
-          <strong><%=resume.lang_1 %></strong> <%=resume.lang_2 %>
-        </li>
-        <% } %> <% if(resume.lang_3){ %>
-        <li style="font-size: 20px">
-          <strong><%=resume.lang_3 %></strong> <%=resume.lang_4 %>
-        </li>
-        <% } %> <% if(resume.lang_5){ %>
-        <li style="font-size: 20px">
-          <strong><%=resume.lang_5 %></strong> <%=resume.lang_6 %>
-        </li>
-        <% } %> <% if(resume.lang_7){ %>
-        <li style="font-size: 20px">
-          <strong><%=resume.lang_7 %></strong> <%=resume.lang_8 %>
-        </li>
-        <% } %>
-      </ul>
-      <h4 class="headings">Projects</h4>
-      <ul>
-        <% if(resume.proj_1){ %>
+    <h4 class="headings">Languages and Skill</h4>
+    <ul>
+      <% resume.skills.forEach(function(skill, index) { %>
         <li class="proj_heading">
-          <%=resume.proj_1 %>
-          <a href="<%=resume.plink_1 %>" style="color: black"
-            ><i class="fas fa-external-link-square-alt"></i
-          ></a>
+          <%= skill.skillName %>
+
         </li>
-        <li style="list-style-type: none"><%=resume.projd_1 %></li>
-        <% } %> <% if(resume.proj_2){ %>
+        <li style="list-style-type: none">
+          <%= skill.description %>
+        </li>
+
+        <% }); %>
+    </ul>
+    <h4 class="headings">Projects</h4>
+    <ul style="font-size: 15px">
+      <% resume.personalProjects.forEach(function(project, index) { %>
         <li class="proj_heading">
-          <%=resume.proj_2 %>
-          <a href="<%=resume.plink_2 %>" style="color: black"
-            ><i class="fas fa-external-link-square-alt"></i
-          ></a>
-        </li>
-        <li style="list-style-type: none"><%=resume.projd_2 %></li>
-        <% } %> <% if(resume.proj_3){ %>
-        <li class="proj_heading">
-          <%=resume.proj_3%>
-          <a href="<%=resume.plink_3 %>" style="color: black"
-            ><i class="fas fa-external-link-square-alt"></i
-          ></a>
-        </li>
-        <li style="list-style-type: none"><%=resume.projd_3 %></li>
-        <% } %>
-      </ul>
-      <h4 class="headings">Work Projects</h4>
-      <ul style="font-size: 15px">
-        <% resume.work_projects.forEach(function(project, index) { %>
-          <li class="proj_heading">
-            <%= project.projectName %>
+          <%= project.name %>
             <a href="<%= project.link %>" style="color: black">
               <i class="fas fa-external-link-square-alt"></i>
             </a>
-          </li>
-          <li style="list-style-type: none"><%= project.description %></li>
-          <li><strong>Duration:</strong> <%= project.duration %></li>
-          <!-- Add other fields related to the project here -->
+        </li>
+        <li style="list-style-type: none">
+          <%= project.description %>
+        </li>
+
+        <!-- Add other fields related to the project here -->
         <% }); %>
-      </ul>
-      <br />
-      <h4 class="headings">Achievements</h4>
+    </ul>
+    <br />
+    <h4 class="headings">Work Projects</h4>
+    <ul style="font-size: 15px">
+      <% resume.work_projects.forEach(function(project, index) { %>
+        <li class="proj_heading">
+          <%= project.projectName %>
+            <a href="<%= project.link %>" style="color: black">
+              <i class="fas fa-external-link-square-alt"></i>
+            </a>
+        </li>
+        <li style="list-style-type: none">
+          <%= project.description %>
+        </li>
+        <li><strong>Duration:</strong>
+          <%= project.duration %>
+        </li>
+        <!-- Add other fields related to the project here -->
+        <% }); %>
+    </ul>
+    <br />
+    <h4 class="headings">Achievements</h4>
 
+    <ul>
       <ul>
-        <% if(resume.ach_1){ %>
-        <li><%=resume.ach_1 %></li>
-        <% } %> <% if(resume.ach_2){ %>
-        <li><%=resume.ach_2 %></li>
-        <% } %> <% if(resume.ach_3){ %>
-        <li><%=resume.ach_3 %></li>
-        <% } %> <% if(resume.ach_4){ %>
-        <li><%=resume.ach_4 %></li>
-        <% } %> <% if(resume.ach_5){ %>
-        <li><%=resume.ach_5 %></li>
-        <% } %>
+        <% resume.achievements.forEach(function(achievement, index) { %>
+          <li class="achievement">
+            <%= achievement %>
+          </li>
+          <% }); %>
       </ul>
-      <br />
-      <h4 class="headings">Hobbies</h4>
-      <ul>
-        <% if(resume.hob_1){ %>
-        <li><%=resume.hob_1 %></li>
-        <% } %> <% if(resume.hob_2){ %>
-        <li><%=resume.hob_2 %></li>
-        <% } %> <% if(resume.hob_3){ %>
-        <li><%=resume.hob_3 %></li>
-        <% } %>
-      </ul>
+    </ul>
+    <br />
+    <h4 class="headings">Hobbies</h4>
+    <ul>
+      <% resume.hobbies.forEach(function(hobby, index) { %>
+        <li class="hobby">
+          <%= hobby %>
+        </li>
+        <% }); %>
+    </ul>
 
-      <h5>
-        I hereby declare that the details furnished above are true and correct
-        to the best of my knowledge and belief.
-      </h5>
-      <br />
+    <br />
+    <h5>
+      I hereby declare that the details furnished above are true and correct to
+      the best of my knowledge and belief.
+    </h5>
 
-      <%- include("../partials/footer") %>
+
+  </div>
+
+  <%- include("../partials/footer") %>
+
     </div>
-  </body>
+</body>
+
 </html>

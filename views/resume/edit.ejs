@@ -17,20 +17,23 @@
       font-family: 'Comic Neue', sans-serif;
       background-color: #f0f0f0;
       /* padding-top: 70px; */
+      margin: 0;
     }
 
-    /* .navbar {
-        background-color: #333;
-        color: white;
-      }
-  
-      .navbar-brand {
-        font-size: 1.5em;
-      } */
+    .navbar {
+      background-color: #333;
+      color: white;
+    }
 
-    /* h1, h2, h3 {
-        color: #333;
-      } */
+    .navbar-brand {
+      font-size: 1.5em;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: #333;
+    }
 
     form {
       background-color: #fff;
@@ -44,26 +47,37 @@
     }
 
     input[type="text"],
-    input[type="number"] {
+    input[type="number"],
+    textarea {
       width: 100%;
       padding: 10px;
       border-radius: 5px;
       border: 1px solid #ccc;
       font-size: 1em;
+      margin-bottom: 10px;
     }
 
-    button[type="submit"] {
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    button[type="submit"],
+    button.addProject {
       width: 100%;
       padding: 10px;
       border-radius: 5px;
       border: none;
       font-size: 1em;
-      background-color: #28a745;
+      background-color: #2883a7;
       color: white;
+      margin-bottom: 20px;
     }
 
-    button[type="submit"]:hover {
-      background-color: #218838;
+    button[type="submit"]:hover,
+    button.addProject:hover {
+      background-color: #146888;
     }
 
     .btn-back {
@@ -74,7 +88,17 @@
     .btn-back:hover {
       background-color: #007bff;
     }
+
+    .work-projects-add {
+      margin-bottom: 18.4px;
+    }
+
+    .addProject {
+      margin: 18.4px 0;
+    }
   </style>
+
+
 
 </head>
 
@@ -144,16 +168,13 @@
     </div>
 
     <div class="col-lg-6 col-md-6 col-sm-8 col-10">
-      <form action="/resume/pro/<%=resume._id%>?_method=PUT" method="POST">
+      <form action="/resume/<%=redirect%>/<%=resume._id%>?_method=PUT" method="POST">
         <div class="form-group">
           <h2>Personal Details</h2>
 
           <input class="form-control" type="text" name="resume[name]" value="<%=resume.name%>" placeholder="Name" />
         </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[roll_no]" value="<%=resume.roll_no%>"
-            placeholder="Roll_no" />
-        </div>
+
 
         <div class="form-group">
           <input class="form-control" type="number" name="resume[contact]" value="<%=resume.contact%>"
@@ -165,200 +186,132 @@
         </div>
 
         <h2>Education</h2>
-        <h3>College/Degree</h3>
+        <div id="educationContainer">
+          <% for(let i=0; i < resume.education.length; i++) { %>
+            <div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[education][<%= i %>][instituteName]"
+                  value="<%= resume.education[i].instituteName %>" placeholder="Institute Name" />
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[education][<%= i %>][degreeName]"
+                  value="<%= resume.education[i].degreeName %>" placeholder="Degree Name" />
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[education][<%= i %>][passingYear]"
+                  value="<%= resume.education[i].passingYear %>" placeholder="Passing Year" />
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[education][<%= i %>][percentage]"
+                  value="<%= resume.education[i].percentage %>" placeholder="Percentage" />
+              </div>
 
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[degree_name]" value="<%=resume.degree_name%>"
-            placeholder="Degree" />
+            </div>
+            <% } %>
         </div>
-        <div class="form-group">
-          <input class="form-control" type="number" name="resume[CGPA]" value="<%=resume.CGPA%>" min="0.01" step="0.01"
-            placeholder="CGPA" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[Duration]" value="<%=resume.Duration%>"
-            placeholder="Passing Year" />
-        </div>
-
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[University_Name]" value="<%=resume.University_Name%>"
-            placeholder="University" />
-        </div>
-        <h3>Class XII</h3>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[board_12]" value="<%=resume.board_12%>"
-            placeholder="Board" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="number" name="resume[per_12]" value="<%=resume.per_12%>" min="0.01"
-            step="0.01" placeholder="Percentage" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[pass_12]" value="<%=resume.pass_12%>"
-            placeholder="Passing Year" />
-        </div>
-
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[school_12]" value="<%=resume.school_12%>"
-            placeholder="School Name" />
-        </div>
-        <h3>Class X</h3>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[board_10]" value="<%=resume.board_10%>"
-            placeholder="Board" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="number" name="resume[per_10]" value="<%=resume.per_10%>" min="0.01"
-            step="0.01" placeholder="Percentage" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[pass_10]" value="<%=resume.pass_10%>"
-            placeholder="Passing Year" />
-        </div>
-
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[school_10]" value="<%=resume.school_10%>"
-            placeholder="School Name" />
-        </div>
+        <button id="education" type="button" class="btn btn-info addProject" onclick="addFields([{ name: 'education', fieldName: 'instituteName', placeholder: 'instituteName' },
+        { name: 'education', fieldName: 'degreeName', placeholder: 'degreeName' },
+        { name: 'education', fieldName: 'passingYear', placeholder: 'passingYear' },
+        { name: 'education', fieldName: 'percentage', placeholder: 'percentage' },
+        ],'educationContainer')"> + Add Education</button>
         <h2>Skills</h2>
 
         <h3>Languages</h3>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[lang_1]" value="<%=resume.lang_1%>"
-            placeholder="Skill Name" />
+        <div id="languagesContainer">
+          <% for(let i=0; i < resume.skills.length; i++) { %>
+            <div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[skills][<%= i %>][skillName]"
+                  value="<%= resume.skills[i].skillName %>" placeholder="Skill" />
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[skills][<%= i %>][description]"
+                  value="<%= resume.skills[i].description %>" placeholder="Languages used / Description" />
+              </div>
+
+            </div>
+            <% } %>
         </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[lang_2]" value="<%=resume.lang_2%>"
-            placeholder="Languages used or Desc" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[lang_3]" value="<%=resume.lang_3%>"
-            placeholder="Skill Name" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[lang_4]" value="<%=resume.lang_4%>"
-            placeholder="Languages used or Desc" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[lang_5]" value="<%=resume.lang_5%>"
-            placeholder="Skill Name" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[lang_6]" value="<%=resume.lang_6%>"
-            placeholder="Languages used or Desc" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[lang_7]" value="<%=resume.lang_7%>"
-            placeholder="Skill Name" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[lang_8]" value="<%=resume.lang_8%>"
-            placeholder="Languages used or Desc" />
-        </div>
+        <button type="button" class="btn btn-info addProject"
+        onclick="addFields([{ name: 'skills', fieldName: 'skillName', placeholder: 'Skill Name' },
+              { name: 'skills', fieldName: 'description', placeholder: 'Languages used / Description' },       ],'languagesContainer')">+ Add Skill</button>
         <h3>Projects</h3>
 
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[proj_1]" value="<%=resume.proj_1%>"
-            placeholder="Project Title" />
+        <div id="personalProjectsContainer">
+          <% for(let i=0; i < resume.personalProjects.length; i++) { %>
+            <div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[personalProjects][<%= i %>][name]"
+                  value="<%= resume.personalProjects[i].name %>" placeholder="Project Title" />
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[personalProjects][<%= i %>][description]"
+                  value="<%= resume.personalProjects[i].description %>" placeholder="Project Description" />
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[personalProjects][<%= i %>][link]"
+                  value="<%= resume.personalProjects[i].link %>" placeholder="Project Link" />
+              </div>
+
+            </div>
+            <% } %>
         </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[projd_1]" value="<%=resume.projd_1%>"
-            placeholder="Project Desc." />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[plink_1]" value="<%= resume.plink_1%>"
-            placeholder="Project Link" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[proj_2]" value="<%=resume.proj_2%>"
-            placeholder="Project Title" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[projd_2]" value="<%=resume.projd_2%>"
-            placeholder="Project Desc." />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[plink_2]" value="<%= resume.plink_2%>"
-            placeholder="Project Link" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[proj_3]" value="<%=resume.proj_3%>"
-            placeholder="Project Title" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[projd_3]" value="<%=resume.projd_3%>"
-            placeholder="Project Desc." />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[plink_3]" value="<%= resume.plink_3%>"
-            placeholder="Project Link" />
-        </div>
+        <button type="button" class="btn btn-info addProject" onclick="addFields([{ name: 'personalProjects', fieldName: 'name', placeholder: 'Project Name' },
+        { name: 'personalProjects', fieldName: 'description', placeholder: 'Project Description' },
+
+{ name: 'personalProjects', fieldName: 'link', placeholder: 'Project Link' },
+],'personalProjectsContainer')">+ Add Project</button>
         <h2>Achievements and Hobbies</h2>
         <h3>Achievements</h3>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[ach_1]" value="<%=resume.ach_1%>"
-            placeholder="Achievement" />
+        <div id="achievementsContainer">
+          <% for(let i=0; i < resume.achievements.length; i++) { %>
+            <div>
+              </h3>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[achievements][<%= i %>]"
+                  value="<%= resume.achievements[i] %>" placeholder="Achievements" />
+              </div>
+            </div>
+            <% } %>
         </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[ach_2]" value="<%=resume.ach_2%>"
-            placeholder="Achievement" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[ach_3]" value="<%=resume.ach_3%>"
-            placeholder="Achievement" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[ach_4]" value="<%=resume.ach_4%>"
-            placeholder="Achievement" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[ach_5]" value="<%=resume.ach_5%>"
-            placeholder="Achievement" />
-        </div>
+        <button type="button" class="btn btn-info addProject" onclick="addFields([{ name: 'achievements', fieldName: 'NoFieldName', placeholder: 'Achievements' },
+        ],'achievementsContainer')"> + Add Achievements</button>
         <h3>Hobbies</h3>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[hob_1]" value="<%=resume.hob_1%>" placeholder="Hobby" />
+        <div id="hobbiesContainer">
+          <% for(let i=0; i < resume.hobbies.length; i++) { %>
+            <div>
+              </h3>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[hobbies][<%= i %>]"
+                  value="<%= resume.hobbies[i] %>" placeholder="Hobbies" />
+              </div>
+            </div>
+            <% } %>
         </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[hob_2]" value="<%=resume.hob_2%>" placeholder="Hobby" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[hob_3]" value="<%=resume.hob_3%>" placeholder="Hobby" />
-        </div>
+        <button type="button" class="btn btn-info addProject" onclick="addFields([{ name: 'hobbies', fieldName: 'NoFieldName', placeholder: 'Hobbies' },
+        ],'hobbiesContainer')"> + Add Hobbies</button>
         <h3>Account Links</h3>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[hlink_1]" value="<%=resume.hlink_1%>"
-            placeholder="Link Title" />
+
+        <div id="accountLinksContainer">
+          <% for(let i=0; i < resume.accountLinks.length; i++) { %>
+            <div>
+              </h3>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[accountLinks][<%= i %>][linkTitle]"
+                  value="<%= resume.accountLinks[i].linkTitle %>" placeholder="Link Title" />
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="resume[accountLinks][<%= i %>][link]"
+                  value="<%= resume.accountLinks[i].link %>" placeholder="Link" />
+              </div>
+            </div>
+            <% } %>
         </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[link_1]" value="<%=resume.link_1%>"
-            placeholder="Github,Linkedin etc . account links" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[hlink_2]" value="<%=resume.hlink_2%>"
-            placeholder="Link Title" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[link_2]" value="<%=resume.link_2%>"
-            placeholder="Github,Linkedin etc . account links" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[hlink_3]" value="<%=resume.hlink_3%>"
-            placeholder="Link Title" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[link_3]" value="<%=resume.link_3%>"
-            placeholder="Github,Linkedin etc . account links" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[hlink_4]" value="<%=resume.hlink_4%>"
-            placeholder="Link Title" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="resume[link_4]" value="<%=resume.link_4%>"
-            placeholder="Github,Linkedin etc . account links" />
-        </div>
+        <button type="button" class="btn btn-info addProject" onclick="addFields([{ name: 'accountLinks', fieldName: 'linkTitle', placeholder: 'Link Title' },
+        { name: 'accountLinks', fieldName: 'link', placeholder: 'Link' },
+       ],'accountLinksContainer')">+ Add Links</button>
         <h2>Projects</h2>
+
         <div id="projectsContainer">
           <% for(let i=0; i < resume.work_projects.length; i++) { %>
             <div class="project">
@@ -385,14 +338,20 @@
         </div>
 
         <!-- Add Project button -->
-        <button type="button" class="btn btn-info" id="addProjectBtn">Add Project</button>
+        <button type="button" class="btn btn-info addProject" onclick="addFields([{ name: 'work_projects', fieldName: 'projectName', placeholder: 'Project Name' },
+        { name: 'work_projects', fieldName: 'link', placeholder: 'Link' },
+        { name: 'work_projects', fieldName: 'description', placeholder: 'Description' },
+        { name: 'work_projects', fieldName: 'duration', placeholder: 'Duration' }],'projectsContainer');this.blur();">+
+          Add
+          Project</button>
         <div class="form-group">
           <button class="btn btn-success btn-lg btn-block">
             Update Resume
           </button>
         </div>
       </form>
-      <a class="btn btn-md btn-primary" href="/resume/pro/<%=resume._id%>"><i class="fa fa-arrow-left"></i> &nbsp
+      <br/>
+      <a class="btn btn-md btn-primary" href="/resume/<%=redirect%>/<%=resume._id%>"><i class="fa fa-arrow-left"></i> &nbsp
         Back</a>
       <br />
       <br />
@@ -402,7 +361,25 @@
 </body>
 
 </html>
-<script>
+<script>function addFields(fieldInfo, id) {
+    const container = document.getElementById(id);
+    const count = container.children.length;
+    const newDiv = document.createElement('div');
+    console.log(fieldInfo);
+    fieldInfo.forEach(field => {
+      const inputField = document.createElement('input');
+      inputField.type = 'text';
+      inputField.name = field.fieldName !== 'NoFieldName' ? `resume[${field.name}][${count}][${field.fieldName}]` : `resume[${field.name}][${count}]`;
+      inputField.placeholder = field.placeholder;
+      inputField.classList = 'form-control work-projects-add';
+      newDiv.appendChild(inputField);
+    });
+
+    container.appendChild(newDiv);
+    e.target.blur();
+  }
+</script>
+<!-- <script>
   document.getElementById('addProjectBtn').addEventListener('click', function () {
     const projectsContainer = document.getElementById('projectsContainer');
     const projectCount = projectsContainer.getElementsByClassName('project').length;
@@ -440,4 +417,4 @@
 
     projectsContainer.appendChild(newProject);
   });
-</script>
+</script> -->

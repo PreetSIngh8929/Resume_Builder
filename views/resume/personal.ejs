@@ -17,20 +17,23 @@
       font-family: 'Comic Neue', sans-serif;
       background-color: #f0f0f0;
       /* padding-top: 70px; */
+      margin: 0;
     }
 
-    /* .navbar {
-        background-color: #333;
-        color: white;
-      }
-  
-      .navbar-brand {
-        font-size: 1.5em;
-      } */
+    .navbar {
+      background-color: #333;
+      color: white;
+    }
 
-    /* h1, h2, h3 {
-        color: #333;
-      } */
+    .navbar-brand {
+      font-size: 1.5em;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: #333;
+    }
 
     form {
       background-color: #fff;
@@ -44,26 +47,37 @@
     }
 
     input[type="text"],
-    input[type="number"] {
+    input[type="number"],
+    textarea {
       width: 100%;
       padding: 10px;
       border-radius: 5px;
       border: 1px solid #ccc;
       font-size: 1em;
+      margin-bottom: 10px;
     }
 
-    button[type="submit"] {
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    button[type="submit"],
+    button.addProject {
       width: 100%;
       padding: 10px;
       border-radius: 5px;
       border: none;
       font-size: 1em;
-      background-color: #28a745;
+      background-color: #2883a7;
       color: white;
+      margin-bottom: 20px;
     }
 
-    button[type="submit"]:hover {
-      background-color: #218838;
+    button[type="submit"]:hover,
+    button.addProject:hover {
+      background-color: #146888;
     }
 
     .btn-back {
@@ -74,54 +88,35 @@
     .btn-back:hover {
       background-color: #007bff;
     }
-    .work-projects-add{
+
+    .work-projects-add {
       margin-bottom: 18.4px;
     }
-    .addProject{
-      margin:18.4px 0;
+
+    .addProject {
+      margin: 18.4px 0;
     }
   </style>
-  <script>
-    // Function to add new project input fields
-    function addProject() {
-      const container = document.getElementById('projectsContainer');
-      const projectCount = container.children.length
-      const projectDiv = document.createElement('div');
 
-      const projectName = document.createElement('input');
-      projectName.type = 'text';
-      projectName.name = `work_projects[${projectCount}][projectName]`;
-      projectName.placeholder = 'Project Name';
-      projectName.classList = 'form-control work-projects-add';
+  <script>function addFields(fieldInfo, id) {
+      const container = document.getElementById(id);
+      const count = container.children.length;
+      const newDiv = document.createElement('div');
+      console.log(fieldInfo);
+      fieldInfo.forEach(field => {
+        const inputField = document.createElement('input');
+        inputField.type = 'text';
+        inputField.name = field.fieldName !== 'NoFieldName' ? `${field.name}[${count}][${field.fieldName}]` : `${field.name}[${count}]`;
+        inputField.placeholder = field.placeholder;
+        inputField.classList = 'form-control work-projects-add';
+        newDiv.appendChild(inputField);
+      });
 
-
-      const link = document.createElement('input');
-      link.type = 'text';
-      link.name = `work_projects[${projectCount}][link]`;
-      link.placeholder = 'Link';
-      link.classList = 'form-control work-projects-add';
-
-
-      const description = document.createElement('input');
-      description.type = 'text';
-      description.name = `work_projects[${projectCount}][description]`;
-      description.placeholder = 'Description';
-      description.classList = 'form-control work-projects-add';
-
-      const duration = document.createElement('input');
-      duration.type = 'text';
-      duration.name = `work_projects[${projectCount}][duration]`;
-      duration.placeholder = 'Duration';
-      duration.classList = 'form-control work-projects-add';
-
-
-      projectDiv.appendChild(projectName);
-      projectDiv.appendChild(link);
-      projectDiv.appendChild(description);
-      projectDiv.appendChild(duration);
-      container.appendChild(projectDiv);
+      container.appendChild(newDiv);
+      e.target.blur();
     }
   </script>
+
 </head>
 
 <body>
@@ -196,12 +191,10 @@
         <div class="form-group">
           <input class="form-control" type="text" name="name" placeholder="Name" />
         </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="roll_no" placeholder="Roll No." />
-        </div>
+
 
         <div class="form-group">
-          <input class="form-control" type="number" name="contact" placeholder="Contact No." />
+          <input class="form-control no-spin" type="number" name="contact" placeholder="Contact No." />
         </div>
 
         <div class="form-group">
@@ -209,77 +202,17 @@
         </div>
 
         <h2>Education</h2>
-        <h3>College/Degree</h3>
+        <div id="educationContainer"></div>
+        <button id="education" type="button" class="btn btn-info addProject" onclick="addFields([{ name: 'education', fieldName: 'instituteName', placeholder: 'instituteName' },
+        { name: 'education', fieldName: 'degreeName', placeholder: 'degreeName' },
+        { name: 'education', fieldName: 'passingYear', placeholder: 'passingYear' },
+        { name: 'education', fieldName: 'percentage', placeholder: 'percentage' },
+        ],'educationContainer')"> + Add Education</button>
+        <!-- <h3>College/Degree</h3> -->
 
-        <div class="form-group">
-          <input class="form-control" type="text" name="degree_name" placeholder="Degree Name" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="number" name="CGPA" placeholder="CGPA" min="0.01" step="0.01" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="Duration" placeholder="Passsing Year" />
-        </div>
-
-        <div class="form-group">
-          <input class="form-control" type="text" name="University_Name" placeholder="University Name" />
-        </div>
-        <h3>Class XII</h3>
-        <div class="form-group">
-          <input class="form-control" type="text" name="board_12" placeholder="Board Name" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="number" name="per_12" placeholder="Percentage" min="0.01" step="0.01" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="pass_12" placeholder="Passing Year" />
-        </div>
-
-        <div class="form-group">
-          <input class="form-control" type="text" name="school_12" placeholder="School Name" />
-        </div>
-        <h3>Class X</h3>
-        <div class="form-group">
-          <input class="form-control" type="text" name="board_10" placeholder="Board Name" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="number" name="per_10" placeholder="Percentage" min="0.01" step="0.01" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="pass_10" placeholder="Passing Year" />
-        </div>
-
-        <div class="form-group">
-          <input class="form-control" type="text" name="school_10" placeholder="School Name" />
-        </div>
-        <h2>Skills</h2>
-
-        <h3>Languages</h3>
-        <div class="form-group">
-          <input class="form-control" type="text" name="lang_1" placeholder="Skill Name" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="lang_2" placeholder="Languages used or Desc" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="lang_3" placeholder="Skill Name" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="lang_4" placeholder="Languages used or Desc" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="lang_5" placeholder="Skill Name" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="lang_6" placeholder="Languages used or Desc" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="lang_7" placeholder="Skill Name" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="lang_8" placeholder="Languages used or Desc" />
-        </div>
-        <h3>Personal Projects</h3>
+        <!-- <div class="form-group">
+        
+        
 
         <div class="form-group">
           <input class="form-control" type="text" name="proj_1" placeholder="Project 1 Name" />
@@ -290,106 +223,99 @@
         <div class="form-group">
           <input class="form-control" type="text" name="plink_1" placeholder="Project Link" />
         </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="proj_2" placeholder="Project 2 Name" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="projd_2" placeholder="Project Description" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="plink_2" placeholder="Project Link" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="proj_3" placeholder="Project 3 Name" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="projd_3" placeholder="Project Description" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="plink_3" placeholder="Project Link" />
-        </div>
+       
+       
+        
+         </div> -->
+        <h2>Skills</h2>
+
+        <h3>Languages</h3>
+        <div id="languagesContainer"></div>
+        <button type="button" class="btn btn-info addProject"
+          onclick="addFields([{ name: 'skills', fieldName: 'skillName', placeholder: 'Skill Name' },
+                { name: 'skills', fieldName: 'description', placeholder: 'Languages used / Description' },       ],'languagesContainer')">+ Add Skill</button>
+        <h3>Personal Projects</h3>
+        <div id="personalProjectsContainer"></div>
+        <button type="button" class="btn btn-info addProject" onclick="addFields([{ name: 'personalProjects', fieldName: 'name', placeholder: 'Project Name' },
+                { name: 'personalProjects', fieldName: 'description', placeholder: 'Project Description' },
+
+        { name: 'personalProjects', fieldName: 'link', placeholder: 'Project Link' },
+       ],'personalProjectsContainer')">+ Add Project</button>
         <h2>Achievements and Hobbies</h2>
         <h3>Achievements</h3>
-        <div class="form-group">
-          <input class="form-control" type="text" name="ach_1" placeholder="Achievement 1" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="ach_2" placeholder="Achievement 2" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="ach_3" placeholder="Achievement 3" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="ach_4" placeholder="Achievement 4" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="ach_5" placeholder="Achievement 5" />
-        </div>
-        <h3>Hobbies</h3>
-        <div class="form-group">
-          <input class="form-control" type="text" name="hob_1" placeholder="Hobby 1" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="hob_2" placeholder="Hobby 2" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="hob_3" placeholder="Hobby 3" />
-        </div>
-        <h3>Account Links</h3>
-        <div class="form-group">
-          <input class="form-control" type="text" name="hlink_1" placeholder="Link Title" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="link_1" placeholder="Github,Linkedin etc . account links" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="hlink_2" placeholder="Link Title" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="link_2" placeholder="Github,Linkedin etc . account links" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="hlink_3" placeholder="Link Title" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="link_3" placeholder="Github,Linkedin etc . account links" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="hlink_4" placeholder="Link Title" />
+        <div id="achievementsContainer">
+          <!-- <div>
+            <input class="form-control" type="text" name="achievement[0]" placeholder="Achievements">
+            <br />
+          </div> -->
 
-        </div>   <div class="form-group">
-          <input class="form-control" type="text" name="link_4" placeholder="Github,Linkedin etc . account links" />
+
         </div>
+        <button type="button" class="btn btn-info addProject" onclick="addFields([{ name: 'achievements', fieldName: 'NoFieldName', placeholder: 'Achievements' },
+       ],'achievementsContainer')"> + Add Achievements</button>
+        <h3>Hobbies</h3>
+        <div id="hobbiesContainer">
+          <!-- <div>
+            <input class="form-control" type="text" name="hobbies[0]" placeholder="hobbies">
+            <br />
+          </div>
+          <div>
+            <input class="form-control" type="text" name="hobbies[1]" placeholder="hobbies">
+            <br />
+          </div> -->
+
+        </div>
+        <button type="button" class="btn btn-info addProject" onclick="addFields([{ name: 'hobbies', fieldName: 'NoFieldName', placeholder: 'Hobbies' },
+       ],'hobbiesContainer')"> + Add Hobbies</button>
+        <h3>Account Links</h3>
+        <div id="accountLinksContainer">
+          <!-- <div>
+            <input class="form-control" type="text" name="accountLinks[0][linkTitle]" placeholder="Link Title">
+            <br />
+            <input class="form-control" type="text" name="accountLinks[0][link]" placeholder="Link">
+            <br />
+          </div>
+          <div><input class="form-control" type="text" name="accountLinks[1][linkTitle]" placeholder="Link Title">
+            <br />
+            <input class="form-control" type="text" name="accountLinks[1][link]" placeholder="Link">
+            <br />
+          </div> -->
+        </div>
+        <button type="button" class="btn btn-info addProject" onclick="addFields([{ name: 'accountLinks', fieldName: 'linkTitle', placeholder: 'Link Title' },
+        { name: 'accountLinks', fieldName: 'link', placeholder: 'Link' },
+       ],'accountLinksContainer')">+ Add Links</button>
         <h2>Work Experience</h2>
         <h3>Projects</h3>
 
-     
+
         <div id="projectsContainer">
           <!-- Fields for the first project -->
           <div>
-            <!-- <label for="projectName1">Project Name:</label> -->
-            <input class="form-control" type="text" name="work_projects[0][projectName]" placeholder="Project Name">
+            <!-- <input class="form-control" type="text" name="work_projects[0][projectName]" placeholder="Project Name">
             <br>
-            <!-- <label for="link1">Link:</label> -->
             <input class="form-control" type="text" name="work_projects[0][link]" placeholder="Link">
             <br>
-            <!-- <label for="description1">Description:</label> -->
             <input class="form-control" type="text" name="work_projects[0][description]" placeholder="Description">
             <br>
-            <!-- <label for="duration1">Duration:</label> -->
             <input class="form-control" type="text" name="work_projects[0][duration]" placeholder="Duration">
-            <br>
+            <br> -->
           </div>
         </div>
 
-        <button type="button" class="btn btn-info addProject"  onclick="addProject()">Add Project</button>
+        <button type="button" class="btn btn-info addProject" onclick="addFields([{ name: 'work_projects', fieldName: 'projectName', placeholder: 'Project Name' },
+        { name: 'work_projects', fieldName: 'link', placeholder: 'Link' },
+        { name: 'work_projects', fieldName: 'description', placeholder: 'Description' },
+        { name: 'work_projects', fieldName: 'duration', placeholder: 'Duration' }],'projectsContainer');this.blur();">+
+          Add
+          Project</button>
 
+        <br />
 <br/>
-
         <div class="form-group">
           <button class="btn btn-success btn-lg btn-block">Submit</button>
         </div>
       </form>
+      <br />
       <a class="btn btn-md btn-primary" href="/resume"><i class="fa fa-arrow-left"></i> &nbsp Back</a>
       <br />
       <br />
